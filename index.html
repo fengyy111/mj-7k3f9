@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2563eb">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="面经">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="./icons/icon-180.png">
+<title>简历面经 · 硬件实习</title>
+<style>
+:root{
+  --bg:#f4f5f7; --card:#ffffff; --text:#16181d; --sub:#6b7280; --line:#e6e8ec;
+  --brand:#2563eb; --brand-soft:#e8efff; --ok:#16a34a; --warn:#c2410c;
+  --star:#f59e0b; --radius:14px; --fs:16px;
+}
+html[data-theme="dark"]{
+  --bg:#0f1115; --card:#181b21; --text:#e9ebef; --sub:#98a1ad; --line:#282d36;
+  --brand:#6ba3ff; --brand-soft:#1b2740; --ok:#4ade80; --warn:#fb923c;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:var(--bg);color:var(--text);font-size:var(--fs);line-height:1.65;
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+  padding-bottom:96px;
+}
+/* ---------- header ---------- */
+header{
+  position:sticky;top:0;z-index:30;background:var(--card);
+  border-bottom:1px solid var(--line);padding:10px 12px 0;
+  padding-top:calc(10px + env(safe-area-inset-top));
+}
+.hrow{display:flex;align-items:center;gap:8px}
+.hlogo{font-weight:700;font-size:17px;letter-spacing:.3px;flex:1;min-width:0;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hlogo small{font-weight:400;color:var(--sub);font-size:12px;margin-left:6px}
+.iconbtn{
+  border:1px solid var(--line);background:transparent;color:var(--text);
+  border-radius:10px;height:34px;min-width:34px;padding:0 10px;font-size:13px;
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+}
+.iconbtn:active{background:var(--brand-soft)}
+.searchwrap{position:relative;margin:9px 0 8px}
+.searchwrap input{
+  width:100%;height:38px;border-radius:11px;border:1px solid var(--line);
+  background:var(--bg);color:var(--text);padding:0 34px 0 12px;font-size:15px;outline:none;
+}
+.searchwrap input:focus{border-color:var(--brand)}
+.searchwrap .clr{position:absolute;right:6px;top:3px;height:32px;width:30px;border:0;
+  background:transparent;color:var(--sub);font-size:17px;cursor:pointer;display:none}
+.tabs{display:flex;gap:7px;overflow-x:auto;padding:2px 0 9px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  flex:0 0 auto;border:1px solid var(--line);background:transparent;color:var(--sub);
+  border-radius:999px;padding:6px 13px;font-size:14px;white-space:nowrap;cursor:pointer;
+}
+.tab.on{background:var(--brand);border-color:var(--brand);color:#fff;font-weight:600}
+html[data-theme="dark"] .tab.on{color:#0b0d11}
+/* ---------- filter bar ---------- */
+.fbar{display:flex;align-items:center;gap:7px;padding:0 0 9px;overflow-x:auto;scrollbar-width:none}
+.fbar::-webkit-scrollbar{display:none}
+.fchip{border:1px dashed var(--line);background:transparent;color:var(--sub);border-radius:999px;
+  padding:4px 11px;font-size:12.5px;white-space:nowrap;cursor:pointer}
+.fchip.on{border-style:solid;border-color:var(--brand);color:var(--brand);background:var(--brand-soft)}
+.prog{margin-left:auto;font-size:12px;color:var(--sub);white-space:nowrap;padding-left:8px}
+/* ---------- content ---------- */
+main{padding:14px 12px 20px;max-width:820px;margin:0 auto}
+.gtitle{
+  display:flex;align-items:center;gap:8px;margin:22px 0 10px;
+  font-size:13px;font-weight:700;color:var(--brand);letter-spacing:.5px;
+}
+.gtitle:first-child{margin-top:0}
+.gtitle::before{content:"";width:3px;height:14px;border-radius:2px;background:var(--brand)}
+.gtitle::after{content:"";flex:1;height:1px;background:var(--line)}
+.sechint{color:var(--sub);font-size:13px;margin:-4px 0 12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  margin-bottom:9px;overflow:hidden}
+.card.open{border-color:var(--brand)}
+.qh{display:flex;align-items:flex-start;gap:9px;padding:12px 13px;cursor:pointer;user-select:none}
+.qh .qt{flex:1;font-size:15px;font-weight:600;line-height:1.55}
+.qh .chev{color:var(--sub);font-size:19px;line-height:1.2;transition:transform .18s;flex:0 0 auto}
+.card.open .qh .chev{transform:rotate(90deg);color:var(--brand)}
+.abody{display:none;padding:0 13px 13px;white-space:pre-wrap;font-size:14.6px;
+  line-height:1.78;color:var(--text);border-top:1px dashed var(--line);margin-top:-1px;padding-top:11px}
+.card.open .abody{display:block}
+.cbar{display:none;gap:8px;align-items:center;padding:0 13px 12px;flex-wrap:wrap}
+.card.open .cbar{display:flex}
+.mini{border:1px solid var(--line);background:transparent;color:var(--sub);border-radius:9px;
+  padding:4px 10px;font-size:12.5px;cursor:pointer}
+.mini.on{color:#fff;background:var(--ok);border-color:var(--ok)}
+.mini.star{color:var(--star);border-color:var(--star)}
+.mini.star.on{background:var(--star);color:#fff}
+.mini:active{opacity:.75}
+.srcbadge{font-size:11.5px;color:var(--brand);background:var(--brand-soft);border-radius:6px;
+  padding:2px 7px;margin-left:auto;white-space:nowrap}
+/* ---------- doc blocks ---------- */
+.doc{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:14px;margin-bottom:10px}
+.doc h3{margin:0 0 8px;font-size:15px;color:var(--text);display:flex;align-items:flex-start;gap:8px}
+.doc h3 .editbtn{margin-left:auto;flex:0 0 auto}
+.doc .srcbadge{display:inline-block;margin-left:0;margin-top:9px}
+.doc .docbody{white-space:pre-wrap;font-size:14.6px;line-height:1.78}
+.todo{color:var(--warn);font-weight:600}
+/* ---------- empty ---------- */
+.empty{text-align:center;color:var(--sub);font-size:14px;padding:46px 20px;line-height:2}
+/* ---------- fab ---------- */
+.fab{
+  position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:40;
+  width:54px;height:54px;border-radius:50%;border:0;background:var(--brand);color:#fff;
+  font-size:27px;line-height:1;box-shadow:0 6px 18px rgba(37,99,235,.4);cursor:pointer;
+}
+/* ---------- sheet ---------- */
+.mask{position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:50;display:none}
+.mask.on{display:block}
+.sheet{
+  position:fixed;left:0;right:0;bottom:0;z-index:51;background:var(--card);
+  border-radius:18px 18px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom));
+  transform:translateY(102%);transition:transform .22s ease;max-height:86vh;overflow-y:auto;
+}
+.sheet.on{transform:translateY(0)}
+.sheet h2{margin:0 0 14px;font-size:16px;display:flex;align-items:center}
+.sheet h2 span{margin-left:auto;color:var(--sub);font-size:14px;font-weight:400;cursor:pointer}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:13px;color:var(--sub);margin-bottom:5px}
+.field input,.field select,.field textarea{
+  width:100%;border:1px solid var(--line);background:var(--bg);color:var(--text);
+  border-radius:10px;padding:10px;font-size:15px;font-family:inherit;outline:none;
+}
+.field textarea{min-height:110px;line-height:1.7;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--brand)}
+.btn{
+  width:100%;height:44px;border:0;border-radius:11px;background:var(--brand);color:#fff;
+  font-size:15.5px;font-weight:600;cursor:pointer;margin-top:4px;
+}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text);font-weight:500}
+.btnrow{display:flex;gap:8px}
+.fsrow{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.fsrow .mini{flex:0 0 auto;min-width:44px;height:38px;font-size:15px}
+.help{font-size:13.4px;color:var(--sub);line-height:1.9;white-space:pre-wrap}
+.kv{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}
+.kv:last-child{border-bottom:0}
+.kv b{font-weight:600}
+@media (min-width:700px){ body{padding-bottom:40px} .fab{width:58px;height:58px} }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <div class="hlogo">简历面经<small id="subtitle">硬件实习</small></div>
+    <button class="iconbtn" id="btnRandom" title="随机抽题">随机</button>
+    <button class="iconbtn" id="btnSet" title="设置">⚙</button>
+  </div>
+  <div class="searchwrap">
+    <input id="q" type="search" placeholder="搜索问题 / 知识点 / 项目…">
+    <button class="clr" id="btnClr">✕</button>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="fbar">
+    <button class="fchip on" data-f="all">全部</button>
+    <button class="fchip" data-f="todo">未掌握</button>
+    <button class="fchip" data-f="star">已收藏</button>
+    <div class="prog" id="prog"></div>
+  </div>
+</header>
+
+<main id="main"></main>
+<button class="fab" id="btnAdd">＋</button>
+
+<div class="mask" id="mask"></div>
+
+<!-- 添加 -->
+<div class="sheet" id="sheetAdd">
+  <h2>添加一道题<span data-close>关闭</span></h2>
+  <div class="field"><label>归到哪个板块</label><select id="addSec"></select></div>
+  <div class="field"><label>归到哪个分组（可留空）</label>
+    <input id="addGroup" list="groupList" placeholder="例：模拟电路；留空则放进「我补充的」">
+    <datalist id="groupList"></datalist>
+  </div>
+  <div class="field"><label>问题 / 标题</label><input id="addQ" placeholder="例：MOSFET 选型看哪些参数？"></div>
+  <div class="field"><label>答案 / 内容（可用换行分段）</label><textarea id="addA" placeholder="写下答案要点、你的讲稿、面试官的原话…"></textarea></div>
+  <button class="btn" id="btnAddSave">保存到面经</button>
+</div>
+
+<!-- 编辑 -->
+<div class="sheet" id="sheetEdit">
+  <h2>编辑这条内容<span data-close>关闭</span></h2>
+  <div class="field"><label>问题 / 标题</label><input id="editQ"></div>
+  <div class="field"><label>答案 / 内容</label><textarea id="editA" style="min-height:200px"></textarea></div>
+  <div class="btnrow">
+    <button class="btn ghost" id="btnEditDel" style="color:var(--warn);border-color:var(--warn)">删除这条</button>
+    <button class="btn" id="btnEditSave">保存</button>
+  </div>
+  <div class="help" style="margin-top:12px">内置题目的修改会作为“覆盖”保存，点设置里的「恢复原始内容」可以撤销。</div>
+</div>
+
+<!-- 文本导入导出 -->
+<div class="sheet" id="sheetIO">
+  <h2>文本同步<span data-close>关闭</span></h2>
+  <div class="field"><label>范围</label>
+    <select id="ioScope">
+      <option value="cur">当前板块</option>
+      <option value="all">全部板块</option>
+    </select>
+  </div>
+  <div class="btnrow">
+    <button class="btn ghost" id="btnExportText">导出文本</button>
+    <button class="btn ghost" id="btnExportJson">导出完整备份</button>
+  </div>
+  <div class="field" style="margin-top:12px">
+    <label>把文本复制到备忘录 / 发给自己；在电脑上改完粘贴回来点「导入」</label>
+    <textarea id="ioBox" style="min-height:190px" placeholder="点上面的导出按钮生成内容，或把别处的面经粘贴到这里再导入"></textarea>
+  </div>
+  <button class="btn" id="btnImport">导入这段文本</button>
+  <div class="help" style="margin-top:14px">两种导出怎么选：
+· **导出文本**：给人看、可在电脑上编辑，只含题目与答案；适合搬运内容。
+· **导出完整备份**：连掌握标记、修改、删除记录一起存；换手机还原用这个。
+
+导入规则：同一板块内**问题文字相同 → 更新答案；新的问题 → 追加**（标点和空格不同也算同一题）。你自己删掉的题不会被导入复活。
+
+文本格式（手写也认）：
+# 板块名
+## 分组名
+Q: 问题文字
+@id: xxx          ← 导出时自动加的，别改也别删，用来认出“改过标题的题”
+A: 答案文字
+T: 文档块标题
+A: 内容
+以两个空格开头的行会接在上一段答案后面。</div>
+</div>
+
+<!-- 设置 -->
+<div class="sheet" id="sheetSet">
+  <h2>设置<span data-close>关闭</span></h2>
+  <div class="fsrow">
+    <button class="mini" id="fsDown">A−</button>
+    <span style="font-size:13.4px;color:var(--sub);flex:1">正文字号</span>
+    <button class="mini" id="fsUp">A＋</button>
+    <button class="mini" id="btnTheme">深色</button>
+  </div>
+  <div class="kv"><span>题目总数</span><b id="stTotal">0</b></div>
+  <div class="kv"><span>已掌握</span><b id="stDone">0</b></div>
+  <div class="kv"><span>我添加 / 导入的</span><b id="stCustom">0</b></div>
+  <div class="kv"><span>我修改过的内置题</span><b id="stEdit">0</b></div>
+  <div class="kv"><span>我删掉的内置题</span><b id="stDel">0</b></div>
+  <button class="btn" id="btnIO" style="margin-top:14px">文本同步 / 备份恢复</button>
+  <div class="btnrow" style="margin-top:8px">
+    <button class="btn ghost" id="btnReset">清空掌握与收藏</button>
+    <button class="btn ghost" id="btnRestore">恢复原始内容</button>
+  </div>
+  <div class="help" style="margin-top:16px">怎么在手机上用：
+1. 手机浏览器打开这个网址，菜单里选「添加到主屏幕」，之后像 App 一样点开（断网也能看）。
+2. 加题、改答案直接在手机上做：点开卡片有「编辑」，右下角 ＋ 是新增。这些只存在这台手机里，不用重新发布网页。
+3. 换手机或清了浏览器数据：用「文本同步」导出，把文本发给自己，新设备上粘回来点导入。
+4. 电脑上更新了题库或样式：手机上打开（或下拉刷新）就是最新版。</div>
+</div>
+
+<script>
+/* =========================================================
+   1) 内容区：只改这一块就能扩充整份面经
+   item 两种写法：
+     {q:"问题", a:"答案"}          → 折叠卡片，可标记掌握/收藏
+     {doc:"标题", a:"整段内容"}    → 直接铺开的文档块（讲稿、模板用）
+   ========================================================= */
+const DATA = [
+  {
+    id:"hw", title:"硬件面经", hint:"通用高频题库，遇到新题随时丢进来",
+    groups:[
+      {title:"模拟电路", items:[
+        {q:"三极管和 MOSFET 作开关用有什么区别？为什么电源、电机驱动普遍用 MOSFET？",
+         a:"答题骨架（自己补全数字和实测）\n"+
+           "1. 驱动方式：三极管是电流驱动（Ib 决定 Ic，hFE 随温度和 Ic 漂移）；MOS 是电压驱动，靠栅极电荷 Qg，静态几乎不耗驱动电流。\n"+
+           "2. 损耗：三极管饱和压降 Vce(sat) 约 0.2~0.3V 且不可忽略，大电流下损耗大；MOS 用 Rds(on) 描述，可低到毫欧，损耗 I²R。\n"+
+           "3. 并联：MOS 的 Rds(on) 有正温度系数，天然均流，好并联；三极管 Vbe 负温度系数，并联容易热失控。\n"+
+           "4. 关键代价：MOS 栅极电容要充放电，开关损耗集中在米勒平台；栅极必须有明确的下拉 / 泄放路径，悬空会误导通。\n"+
+           "5. 落地到我做的：电机驱动板为什么选 MOS / 集成 H 桥（【待补充：你实际用的型号与理由】）"},
+        {q:"运放“虚短虚断”成立的前提是什么？共模抑制比、失调电压、压摆率分别怎么影响电路？",a:"【待补充】"},
+        {q:"LDO 和 DC-DC 的区别？各自什么场景用？LDO 的压差和发热怎么算？",a:"【待补充】"},
+        {q:"把 0~5V 信号转成 0~3.3V 给 MCU，你怎么做？电阻分压有什么坑？",a:"【待补充】"},
+        {q:"开漏输出和推挽输出的区别？什么时候必须用开漏？",a:"【待补充】"}
+      ]},
+      {title:"数字电路", items:[
+        {q:"组合逻辑和时序逻辑的区别？",a:"【待补充】"},
+        {q:"建立时间、保持时间、亚稳态是什么？跨时钟域怎么处理？",a:"【待补充】"},
+        {q:"施密特触发器的作用？按键消抖软硬件各怎么做？",a:"【待补充】"},
+        {q:"3.3V 器件和 5V 器件通信要注意什么？电平转换有哪几种做法？",a:"【待补充】"}
+      ]},
+      {title:"电源与保护", items:[
+        {q:"电源入口一般要做哪些保护？（反接、浪涌、过流、ESD）",a:"【待补充】"},
+        {q:"去耦电容为什么要贴近芯片电源脚？0.1µF 和 10µF 各自的作用？",a:"【待补充】"},
+        {q:"电源纹波怎么测才准？探头怎么接、带宽限制怎么设？",a:"【待补充】"}
+      ]},
+      {title:"元器件与选型", items:[
+        {q:"上拉 / 下拉电阻的作用？阻值怎么选？",a:"【待补充】"},
+        {q:"MOSFET 选型要看哪些参数？（Vds、Id、Rds(on)、Qg、Vgs(th)）",a:"【待补充】"},
+        {q:"常见存储器 EEPROM / Flash / SRAM / SDRAM 的区别？你什么时候会用到？",a:"【待补充】"}
+      ]},
+      {title:"单片机与嵌入式", items:[
+        {q:"STM32 从上电复位到进 main，中间发生了什么？",a:"【待补充】"},
+        {q:"中断响应流程？NVIC 优先级与中断嵌套是怎么工作的？",a:"【待补充】"},
+        {q:"定时器有哪些模式？PWM 是怎么产生的？PWM 频率怎么选？",a:"【待补充】"},
+        {q:"ADC 有哪几种工作模式？采样时间、分辨率与参考电压是什么关系？",a:"【待补充】"},
+        {q:"DMA 是干什么的？什么场景必须用？",a:"【待补充】"},
+        {q:"看门狗的作用？你项目里用了吗？怎么喂？",a:"【待补充】"}
+      ]},
+      {title:"通信接口与协议", items:[
+        {q:"I2C / SPI / UART 的区别？速率、线数、多机能力各如何？",a:"【待补充】"},
+        {q:"I2C 为什么必须上拉？时钟拉伸是什么？",a:"【待补充】"},
+        {q:"FPGA 和 MCU 之间一般怎么对接？（并口/FSMC、SPI、UART 的取舍）",a:"【待补充】"}
+      ]},
+      {title:"信号处理与 DSP", items:[
+        {q:"采样定理与混叠？抗混叠滤波器怎么设计、截止频率取多少？",a:"【待补充】"},
+        {q:"FFT 的频率分辨率怎么算？和采样率、点数是什么关系？",a:"【待补充】"},
+        {q:"窗函数是干什么用的？汉宁窗和矩形窗的区别？频谱泄漏怎么减小？",a:"【待补充】"},
+        {q:"FIR 和 IIR 滤波器的区别？你实际用过哪个？",a:"【待补充】"}
+      ]},
+      {title:"PCB 与 EMC", items:[
+        {q:"什么时候必须用 4 层板？2 层和 4 层在 EMC 上的本质区别？",a:"【待补充】"},
+        {q:"模拟地和数字地怎么分？单点接地 / 地平面怎么取舍？",a:"【待补充】"},
+        {q:"大电流走线线宽怎么算？铺铜和过孔怎么处理？",a:"【待补充】"},
+        {q:"晶振布局有什么讲究？时钟线走线要注意什么？",a:"【待补充】"}
+      ]},
+      {title:"仪器与测量", items:[
+        {q:"示波器的带宽、采样率、探头 1X/10X 分别意味着什么？为什么测量时地线要短？",a:"【待补充】"},
+        {q:"怎么用万用表判断一个 MOS 管的好坏？",a:"【待补充】"},
+        {q:"信号源 / 频谱仪 / 逻辑分析仪各自用来查什么问题？",a:"【待补充】"}
+      ]},
+      {title:"嵌入式 C 语言", items:[
+        {q:"volatile 是干什么的？什么时候必须加？",a:"【待补充】"},
+        {q:"指针和引用的区别？结构体内存对齐是什么？",a:"【待补充】"},
+        {q:"const / static / extern 各自的作用？",a:"【待补充】"},
+        {q:"怎么把寄存器第 3 位清零、置一、取反？",a:"【待补充】"}
+      ]},
+      {title:"调试与故障排查", items:[
+        {q:"板子第一次上电前，你会做哪些检查？",a:"【待补充】"},
+        {q:"上电没起来 / 一跑电机就复位，你的排查顺序是什么？",a:"【待补充】"},
+        {q:"怎么定位通信丢包、间歇性死机这类“偶发”问题？",a:"【待补充】"}
+      ]},
+      {title:"工艺、焊接与可靠性", items:[
+        {q:"手工焊 0402 / QFN 的注意点？虚焊怎么查出来？",a:"【待补充】"},
+        {q:"回流焊温度曲线看什么？",a:"【待补充】"},
+        {q:"常见可靠性测试：高低温、振动、老化、EMC 各测什么？",a:"【待补充】"}
+      ]},
+      {title:"通用与行为问题", items:[
+        {q:"最有成就感的一件事？",a:"【待补充】"},
+        {q:"和别人意见不合怎么处理？",a:"【待补充】"},
+        {q:"期望薪资？能实习多久？能接受出差吗？",a:"【待补充】"}
+      ]}
+    ]
+  },
+
+  {
+    id:"self", title:"自我介绍", hint:"按简历口述，60 秒版 / 3 分钟版各准备一套",
+    groups:[
+      {title:"结构公式（先背骨架）", items:[
+        {doc:"六段式：我是谁 → 学什么 → 会什么 → 做过什么 → 为什么匹配 → 收尾",
+         a:"1. 我是谁：姓名 + 学校专业 + 年级 + 求职意向（硬件工程师实习生）。\n"+
+           "2. 学什么：与岗位直接相关的课程 2~3 门，带一句成绩或感受（模电 / 单片机 / Verilog）。\n"+
+           "3. 会什么：技能按“能独立做到什么程度”说，不要说“了解/熟悉”这类虚词，改成“能独立画 2~4 层板并出 Gerber”。\n"+
+           "4. 做过什么：实习 + 2 个最相关的项目，每个只给一句“做了什么 + 什么结果（带数字）”。\n"+
+           "5. 为什么匹配：把上面三点收束到“贵司这个岗位要的三件事，我正好都碰过”。\n"+
+           "6. 收尾：一句到岗时间与意愿，然后停下，把话头交给面试官。\n\n"+
+           "【待补充】写成你自己的 60 秒逐字稿，读一遍控制在 55~65 秒。"}
+      ]},
+      {title:"60 秒版（逐字稿）", items:[
+        {doc:"60 秒版", a:"【待补充】"},
+        {doc:"3 分钟版", a:"【待补充】"}
+      ]},
+      {title:"常见变体", items:[
+        {doc:"为什么投硬件这个方向？", a:"【待补充】"},
+        {doc:"为什么选我们公司？", a:"【待补充】"},
+        {doc:"你更适合硬件设计还是调试测试？", a:"【待补充】"}
+      ]}
+    ]
+  },
+
+  {
+    id:"proj", title:"项目 / 实习", hint:"每段都按同一套模板准备：一句话、框图、STAR、数字、边界",
+    groups:[
+      {title:"通用模板（每段都套这个）", items:[
+        {doc:"1. 一句话概括", a:"一句话说清：给谁、解决什么问题、我做了什么、结果如何。不超过 40 字。\n【待补充】"},
+        {doc:"2. 系统框图口述稿", a:"从输入到输出讲一遍：传感器 → 信号调理 → 主控 → 驱动 → 执行机构，标出电源与通信。\n面试官常会让你“画一下”，要能徒手画出来。\n【待补充】"},
+        {doc:"3. STAR 逐句讲稿", a:"S 背景（为什么做）→ T 我的任务（明确边界）→ A 我具体怎么做（分 2~4 步，每步一个技术点）→ R 结果（带数字）。\n【待补充】"},
+        {doc:"4. 指标数字清单", a:"把这些数字全部找出来写死，面试必问：层数、板数、通道数、精度、采样率、点数、刷新率、频率、功率、误差、耗时、良率。\n【待补充】"},
+        {doc:"5. 我的个人边界", a:"逐行标明：哪部分是我独立完成的、哪部分是配合别人的、哪些是别人做的我参与了。含糊 = 减分。\n【待补充】"},
+        {doc:"6. 薄弱点与兜底", a:"列出这段里你最怕被问的 3 个点，各准备一句诚实且有信息量的回答（不会就说不会，然后说你打算怎么补）。\n【待补充】"}
+      ]},
+      {title:"实习：智拙视觉科技 电子工程师", items:[
+        {doc:"一句话概括", a:"【待补充】"},
+        {doc:"主要工作与产出", a:"【待补充】"},
+        {doc:"指标数字清单", a:"【待补充】"},
+        {doc:"个人边界（哪部分是我做的）", a:"【待补充】"},
+        {doc:"薄弱点与兜底", a:"【待补充】"}
+      ]},
+      {title:"项目：黄花菜智能杀青系统", items:[
+        {doc:"一句话概括", a:"【待补充】"},
+        {doc:"系统框图与我的角色", a:"【待补充】"},
+        {doc:"指标数字清单", a:"【待补充】"},
+        {doc:"个人边界", a:"【待补充】"},
+        {doc:"薄弱点与兜底", a:"【待补充】"}
+      ]},
+      {title:"项目：STM32 直流电机控制板", items:[
+        {doc:"一句话概括", a:"【待补充】"},
+        {doc:"系统框图与我的角色", a:"【待补充】"},
+        {doc:"指标数字清单", a:"【待补充】"},
+        {doc:"个人边界", a:"【待补充】"},
+        {doc:"薄弱点与兜底", a:"【待补充】"}
+      ]},
+      {title:"项目：周期信号测量分析装置", items:[
+        {doc:"一句话概括", a:"【待补充】"},
+        {doc:"系统框图与我的角色", a:"【待补充】"},
+        {doc:"指标数字清单", a:"【待补充】"},
+        {doc:"个人边界", a:"【待补充】"},
+        {doc:"薄弱点与兜底", a:"【待补充】"}
+      ]}
+    ]
+  },
+
+  {
+    id:"ask", title:"面试官追问", hint:"基于简历的追问 + 压力问题，被问到的原话都往这里放",
+    groups:[
+      {title:"简历整体质疑", items:[
+        {q:"你三个项目和实习时间重叠，怎么安排的？",a:"【待补充：准备真实的分工与时间安排】"},
+        {q:"这一段里，哪一行代码、哪一根线是你亲手做的？",a:"【待补充】"},
+        {q:"你说“协助/负责/配合”，具体到什么程度？",a:"【待补充】"}
+      ]},
+      {title:"实习追问", items:[
+        {q:"原理图里哪部分是你画的？改版改了什么、为什么改？",a:"【待补充】"},
+        {q:"精度校准具体怎么做？校的是重复定位精度还是绝对位置精度？基准是什么？误差多少？",a:"【待补充】"},
+        {q:"举一个你完整解决的故障：发现、定位、解决。",a:"【待补充】"},
+        {q:"标准化测试报告里有哪些项？能给我看看格式吗？",a:"【待补充】"}
+      ]},
+      {title:"技术深挖", items:[
+        {q:"FFT 点数多少？一次要算多久？实时性怎么保证？分辨率是多少？",a:"【待补充】"},
+        {q:"电机一跑 MCU 就复位 / 通信丢包，你怎么解决？",a:"【待补充】"},
+        {q:"怎么证明你测出来的结果是准的？",a:"【待补充】"}
+      ]},
+      {title:"压力与行为问题", items:[
+        {q:"如果分配给你的任务你完全不会，怎么办？",a:"【待补充】"},
+        {q:"硬件的活枯燥、要反复调试、经常加班，你为什么选这行？",a:"【待补充】"},
+        {q:"你最大的缺点是什么？",a:"【待补充】"},
+        {q:"讲一次你失败的经历。",a:"【待补充】"}
+      ]}
+    ]
+  },
+
+  {
+    id:"reverse", title:"反问面试官", hint:"轮到你说“我没什么问的”，这轮就废了。至少准备 3 个",
+    groups:[
+      {title:"团队与业务", items:[
+        {q:"团队现在几个人？硬件、嵌入式、算法怎么分工？",a:"【可直接用】"},
+        {q:"目前产品处在什么阶段？是打样验证还是量产维护？",a:"【可直接用】"}
+      ]},
+      {title:"岗位与成长", items:[
+        {q:"实习生进来主要承担哪部分工作？是画板、调试，还是从测试切入？",a:"【可直接用】"},
+        {q:"如果我入职，前两周您希望我先做到什么？",a:"【可直接用】"},
+        {q:"实习表现好的话，有转正机会吗？",a:"【可直接用】"}
+      ]},
+      {title:"流程与规范", items:[
+        {q:"你们的板子从原理图到量产，流程是怎么走的？评审节点有哪些？",a:"【可直接用】"},
+        {q:"团队用什么 EDA 工具？有统一的封装库和设计规范吗？",a:"【可直接用】"}
+      ]}
+    ]
+  },
+
+  {
+    id:"mine", title:"我的补充", hint:"点右下角 ＋ 就能加；加完记得去 ⚙ 里导出备份",
+    groups:[
+      {title:"用法", items:[
+        {doc:"更新这份面经，不用重新传文件", a:"1. 加题：右下角 ＋，选板块、填分组（可留空）、写问题和答案。\n"+
+          "2. 改题：任意条目（包括上面所有内置题目）点开后有「编辑」，改完保存；不想要了就点「删除这条」。\n"+
+          "3. 手机上做的这些修改，只存在这台手机的浏览器里，不用把网页重新发一遍。\n"+
+          "4. 要换手机 / 清理浏览器数据之前：设置 → 文本同步 → 导出完整备份，把文本发给自己存着，新设备上粘回来点导入。\n"+
+          "5. 想在电脑上批量整理：导出文本 → 在电脑上改 → 粘回导入框。同题更新答案，新题自动追加。"}
+      ]}
+    ]
+  }
+];
+
+/* =========================================================
+   2) 以下为程序逻辑，一般不用改
+   ========================================================= */
+const LS = {
+  get(k,d){ try{ const v=JSON.parse(localStorage.getItem(k)); return v===null?d:v }catch(e){ return d } },
+  set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)) }catch(e){} }
+};
+const KEY = {m:"mj.mastered", s:"mj.star", c:"mj.custom", f:"mj.fs", t:"mj.theme", o:"mj.open",
+             e:"mj.edit", d:"mj.del"};
+
+let mastered = LS.get(KEY.m,{});
+let starred  = LS.get(KEY.s,{});
+let custom   = LS.get(KEY.c,[]);
+let openMap  = LS.get(KEY.o,{});
+let overrides= LS.get(KEY.e,{});   // 对内置内容的修改：{id:{q,a,doc}}
+let deleted  = LS.get(KEY.d,{});   // 被删掉的内置内容：{id:true}
+
+const state = {sec:DATA[0].id, q:"", filter:"all"};
+
+/* ---- utils ---- */
+function esc(s){
+  return String(s==null?"":s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function hash(s){
+  let h=5381; s=String(s);
+  for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0;
+  return (h>>>0).toString(36);
+}
+function uid(){ return "c_"+Date.now().toString(36)+Math.random().toString(36).slice(2,6) }
+function buildData(includeDeleted){
+  const d = JSON.parse(JSON.stringify(DATA));
+  const validSec = new Set(d.map(s=>s.id));
+  // 1) 挂载本机添加 / 导入的内容，按分组标题归位（分组不存在就建一个）
+  custom.forEach(c=>{
+    const target = validSec.has(c.sec) ? d.find(s=>s.id===c.sec) : d.find(s=>s.id==="mine");
+    const gt = c.group || "我补充的";
+    let g = target.groups.find(g=>g.title===gt);
+    if(!g){ g = {id:"cg_"+hash(gt), title:gt, items:[]}; target.groups.push(g) }
+    g.items.push(c.doc ? {id:c.id, doc:c.q, a:c.a} : {id:c.id, q:c.q, a:c.a});
+  });
+  // 2) 给每条内容分配稳定 ID（用于记住“已掌握 / 已收藏 / 展开状态 / 编辑覆盖”）
+  d.forEach(sec=>sec.groups.forEach((g,gi)=>g.items.forEach((it,ii)=>{
+    it._id = it.id || (sec.id+"-"+hash((it.q||it.doc||"")+"|"+gi+"|"+ii));
+  })));
+  // 3) 应用本机编辑覆盖与删除
+  d.forEach(sec=>sec.groups.forEach(g=>{
+    g.items = g.items.filter(it=>{
+      if(deleted[it._id] && !includeDeleted) return false;
+      const ov = overrides[it._id];
+      if(ov){
+        if(ov.q!==undefined && it.doc===undefined) it.q = ov.q;
+        if(ov.doc!==undefined && it.doc!==undefined) it.doc = ov.doc;
+        if(ov.a!==undefined) it.a = ov.a;
+      }
+      return true;
+    });
+  }));
+  return d;
+}
+function allAccordion(data){
+  const out=[];
+  data.forEach(sec=>sec.groups.forEach(g=>g.items.forEach(it=>{
+    if(!it.doc) out.push({sec, g, it});
+  })));
+  return out;
+}
+function match(it, q){
+  if(!q) return true;
+  q = q.toLowerCase();
+  return ((it.q||"")+" "+(it.doc||"")+" "+(it.a||"")).toLowerCase().includes(q);
+}
+
+/* ---- render ---- */
+const main = document.getElementById("main");
+const tabsEl = document.getElementById("tabs");
+
+function renderTabs(){
+  const data = buildData();
+  tabsEl.innerHTML = data.map(s=>
+    '<button class="tab'+(s.id===state.sec && !state.q ? " on":"")+'" data-s="'+s.id+'">'+esc(s.title)+'</button>'
+  ).join("");
+}
+
+function cardHTML(it, showSrc){
+  const id = it._id;
+  const edited = overrides[id] ? '<span class="srcbadge">已修改</span>' : '';
+  if(it.doc){
+    return '<section class="doc" id="it-'+id+'" data-id="'+id+'">'+
+      '<h3>'+esc(it.doc)+'<button class="mini editbtn" data-act="e">编辑</button></h3>'+
+      '<div class="docbody">'+esc(it.a)+'</div>'+edited+'</section>';
+  }
+  const isOpen = !!openMap[id];
+  const isM = !!mastered[id], isS = !!starred[id];
+  return '<article class="card'+(isOpen?" open":"")+'" id="it-'+id+'" data-id="'+id+'">'+
+    '<div class="qh"><div class="qt">'+esc(it.q)+'</div><div class="chev">›</div></div>'+
+    '<div class="abody">'+esc(it.a)+'</div>'+
+    '<div class="cbar">'+
+      '<button class="mini m'+(isM?" on":"")+'" data-act="m">'+(isM?"✓ 已掌握":"标记掌握")+'</button>'+
+      '<button class="mini star'+(isS?" on":"")+'" data-act="s">'+(isS?"★ 已收藏":"☆ 收藏")+'</button>'+
+      '<button class="mini" data-act="e">编辑</button>'+
+      (showSrc ? '<span class="srcbadge">'+esc(showSrc)+'</span>' : edited)+
+    '</div></article>';
+}
+
+function render(){
+  const data = buildData();
+  renderTabs();
+  const q = state.q.trim();
+  let html = "";
+
+  if(q){
+    const hits = [];
+    data.forEach(sec=>sec.groups.forEach(g=>g.items.forEach(it=>{
+      if(match(it,q)) hits.push({sec,g,it});
+    })));
+    html += '<div class="sechint">搜索「'+esc(q)+'」命中 '+hits.length+' 条</div>';
+    if(!hits.length) html = '<div class="empty">没有找到相关内容<br>换个关键词，或点右下角 ＋ 把它记下来</div>';
+    let lastSec = "";
+    hits.forEach(h=>{
+      if(h.sec.title!==lastSec){ html += '<div class="gtitle">'+esc(h.sec.title)+'</div>'; lastSec=h.sec.title }
+      html += cardHTML(h.it, h.g.title);
+    });
+    main.innerHTML = html;
+    updateProg(data);
+    return;
+  }
+
+  const sec = data.find(s=>s.id===state.sec) || data[0];
+  if(sec.hint) html += '<div class="sechint">'+esc(sec.hint)+'</div>';
+  let shown = 0;
+  sec.groups.forEach(g=>{
+    const items = g.items.filter(it=>{
+      if(state.filter==="all") return true;
+      if(it.doc) return false;
+      return state.filter==="star" ? !!starred[it._id] : !mastered[it._id];
+    });
+    if(!items.length) return;
+    html += '<div class="gtitle">'+esc(g.title)+'</div>';
+    items.forEach(it=>{ shown++; html += cardHTML(it) });
+  });
+  if(!shown) html = '<div class="empty">这个筛选下暂时是空的<br>换个筛选条件看看</div>';
+  main.innerHTML = html;
+  updateProg(data);
+}
+
+function updateProg(data){
+  const list = allAccordion(data);
+  const done = list.filter(x=>mastered[x.it._id]).length;
+  document.getElementById("prog").textContent = "掌握 "+done+"/"+list.length;
+}
+
+/* ---- interactions ---- */
+main.addEventListener("click", e=>{
+  const host = e.target.closest("[data-id]");
+  if(!host) return;
+  const id = host.dataset.id;
+  const actBtn = e.target.closest("[data-act]");
+  if(actBtn){
+    const act = actBtn.dataset.act;
+    if(act==="m"){
+      mastered[id] = !mastered[id];
+      if(!mastered[id]) delete mastered[id];
+      LS.set(KEY.m, mastered);
+    }else if(act==="s"){
+      if(starred[id]) delete starred[id]; else starred[id]=true;
+      LS.set(KEY.s, starred);
+    }else if(act==="e"){
+      openEdit(id);
+      return;
+    }
+    render();
+    return;
+  }
+  if(e.target.closest(".qh")){
+    if(openMap[id]) delete openMap[id]; else openMap[id]=true;
+    LS.set(KEY.o, openMap);
+    host.classList.toggle("open");
+  }
+});
+
+tabsEl.addEventListener("click", e=>{
+  const b = e.target.closest(".tab"); if(!b) return;
+  state.sec = b.dataset.s;
+  const inp = document.getElementById("q");
+  inp.value = ""; state.q = "";
+  document.getElementById("btnClr").style.display = "none";
+  window.scrollTo({top:0,behavior:"smooth"});
+  render();
+});
+
+document.querySelectorAll(".fchip").forEach(c=>{
+  c.addEventListener("click", ()=>{
+    document.querySelectorAll(".fchip").forEach(x=>x.classList.remove("on"));
+    c.classList.add("on");
+    state.filter = c.dataset.f;
+    render();
+  });
+});
+
+const qInput = document.getElementById("q");
+qInput.addEventListener("input", ()=>{
+  state.q = qInput.value;
+  document.getElementById("btnClr").style.display = state.q ? "block" : "none";
+  render();
+});
+document.getElementById("btnClr").addEventListener("click", ()=>{
+  qInput.value=""; state.q=""; document.getElementById("btnClr").style.display="none"; render();
+});
+
+document.getElementById("btnRandom").addEventListener("click", ()=>{
+  state.q=""; qInput.value=""; document.getElementById("btnClr").style.display="none";
+  const data = buildData();
+  const pool = allAccordion(data).filter(x=>{
+    return state.filter==="star" ? !!starred[x.it._id] : (state.filter==="todo" ? !mastered[x.it._id] : true);
+  });
+  if(!pool.length){ alert("没有可抽的题目，先换个筛选条件"); return }
+  const pick = pool[Math.floor(Math.random()*pool.length)];
+  state.sec = pick.sec.id;
+  const id = pick.it._id;
+  openMap[id]=true; LS.set(KEY.o,openMap);
+  render();
+  const el = document.getElementById("it-"+id);
+  if(el){
+    el.scrollIntoView({block:"center",behavior:"smooth"});
+    el.style.transition="box-shadow .3s";
+    el.style.boxShadow="0 0 0 3px var(--brand)";
+    setTimeout(()=>{ el.style.boxShadow="none" },1400);
+  }
+});
+
+/* ---- sheets ---- */
+const mask = document.getElementById("mask");
+function openSheet(el){ mask.classList.add("on"); el.classList.add("on") }
+function closeSheets(){
+  mask.classList.remove("on");
+  document.querySelectorAll(".sheet").forEach(s=>s.classList.remove("on"));
+}
+mask.addEventListener("click", closeSheets);
+document.querySelectorAll("[data-close]").forEach(b=>b.addEventListener("click", closeSheets));
+
+/* add */
+const addSec = document.getElementById("addSec");
+const addGroup = document.getElementById("addGroup");
+const groupList = document.getElementById("groupList");
+function refreshGroups(){
+  const data = buildData();
+  const sec = data.find(s=>s.id===addSec.value);
+  groupList.innerHTML = (sec?sec.groups:[]).map(g=>'<option value="'+esc(g.title)+'">').join("");
+}
+document.getElementById("btnAdd").addEventListener("click", ()=>{
+  const data = buildData();
+  addSec.innerHTML = data.map(s=>'<option value="'+s.id+'">'+esc(s.title)+'</option>').join("");
+  addSec.value = state.sec;
+  addGroup.value = "";
+  refreshGroups();
+  openSheet(document.getElementById("sheetAdd"));
+});
+addSec.addEventListener("change", refreshGroups);
+document.getElementById("btnAddSave").addEventListener("click", ()=>{
+  const q = document.getElementById("addQ").value.trim();
+  const a = document.getElementById("addA").value.trim();
+  if(!q){ alert("先写个问题或标题"); return }
+  const g = document.getElementById("addGroup").value.trim();
+  custom.push({id:uid(), sec:addSec.value, group:g||undefined, q:q, a:a||"【待补充】"});
+  LS.set(KEY.c, custom);
+  document.getElementById("addQ").value="";
+  document.getElementById("addA").value="";
+  state.sec = addSec.value; state.q=""; qInput.value="";
+  document.getElementById("btnClr").style.display="none";
+  closeSheets();
+  render();
+});
+
+/* edit */
+let editId = null;
+function findItem(id){
+  const data = buildData();
+  for(const sec of data) for(const g of sec.groups) for(const it of g.items){
+    if(it._id===id) return {sec, g, it};
+  }
+  return null;
+}
+function openEdit(id){
+  const f = findItem(id);
+  if(!f){ alert("这条内容找不到了"); return }
+  editId = id;
+  document.getElementById("editQ").value = f.it.doc!==undefined ? f.it.doc : (f.it.q||"");
+  document.getElementById("editA").value = f.it.a||"";
+  openSheet(document.getElementById("sheetEdit"));
+}
+// 把修改写回：自定义内容改数组本身，内置内容记为“覆盖”
+function writeEdit(it, q, a){
+  if(it.id){
+    const c = custom.find(c=>c.id===it._id);
+    if(c){ c.q = q; c.a = a; return }
+  }
+  overrides[it._id] = Object.assign({}, overrides[it._id], it.doc!==undefined ? {doc:q, a:a} : {q:q, a:a});
+}
+document.getElementById("btnEditSave").addEventListener("click", ()=>{
+  const f = findItem(editId);
+  const q = document.getElementById("editQ").value.trim();
+  const a = document.getElementById("editA").value;
+  if(!f){ closeSheets(); return }
+  if(!q){ alert("标题不能为空"); return }
+  writeEdit(f.it, q, a);
+  LS.set(KEY.e, overrides); LS.set(KEY.c, custom);
+  closeSheets(); render();
+});
+document.getElementById("btnEditDel").addEventListener("click", ()=>{
+  const f = findItem(editId);
+  if(!f){ closeSheets(); return }
+  if(!confirm("确定删除这条内容？")) return;
+  if(f.it.id){
+    const i = custom.findIndex(c=>c.id===f.it._id);
+    if(i>=0) custom.splice(i,1);
+    LS.set(KEY.c, custom);
+  }else{
+    deleted[f.it._id] = true;
+    LS.set(KEY.d, deleted);
+  }
+  delete mastered[editId]; delete starred[editId]; delete openMap[editId];
+  LS.set(KEY.m,mastered); LS.set(KEY.s,starred); LS.set(KEY.o,openMap);
+  closeSheets(); render();
+});
+
+/* settings */
+const sheetSet = document.getElementById("sheetSet");
+document.getElementById("btnSet").addEventListener("click", ()=>{
+  const data = buildData();
+  document.getElementById("stTotal").textContent = allAccordion(data).length;
+  document.getElementById("stDone").textContent = Object.keys(mastered).length;
+  document.getElementById("stCustom").textContent = custom.length;
+  document.getElementById("stEdit").textContent = Object.keys(overrides).length;
+  document.getElementById("stDel").textContent = Object.keys(deleted).length;
+  openSheet(sheetSet);
+});
+function applyFs(){
+  const fs = LS.get(KEY.f, 16);
+  document.documentElement.style.setProperty("--fs", fs+"px");
+}
+document.getElementById("fsUp").addEventListener("click", ()=>{ LS.set(KEY.f, Math.min(21, LS.get(KEY.f,16)+1)); applyFs() });
+document.getElementById("fsDown").addEventListener("click", ()=>{ LS.set(KEY.f, Math.max(13, LS.get(KEY.f,16)-1)); applyFs() });
+function applyTheme(){
+  const t = LS.get(KEY.t,"light");
+  document.documentElement.setAttribute("data-theme", t);
+  document.getElementById("btnTheme").textContent = t==="dark" ? "浅色" : "深色";
+}
+document.getElementById("btnTheme").addEventListener("click", ()=>{
+  LS.set(KEY.t, LS.get(KEY.t,"light")==="dark" ? "light" : "dark");
+  applyTheme();
+});
+document.getElementById("btnReset").addEventListener("click", ()=>{
+  if(!confirm("清空所有掌握与收藏标记？（我编辑、添加、删除的内容都会保留）")) return;
+  mastered={}; starred={}; openMap={};
+  LS.set(KEY.m,mastered); LS.set(KEY.s,starred); LS.set(KEY.o,openMap);
+  closeSheets(); render();
+});
+document.getElementById("btnRestore").addEventListener("click", ()=>{
+  if(!confirm("撤销所有对内置题目的修改和删除，恢复成原始内容？（你自己添加的题目会保留）")) return;
+  overrides={}; deleted={};
+  LS.set(KEY.e,overrides); LS.set(KEY.d,deleted);
+  closeSheets(); render();
+});
+
+/* ---- 文本同步：手机与电脑之间只传一段文字 ---- */
+const ioBox = document.getElementById("ioBox");
+const ioScope = document.getElementById("ioScope");
+document.getElementById("btnIO").addEventListener("click", ()=>{
+  closeSheets();
+  ioBox.value = "";
+  setTimeout(()=>openSheet(document.getElementById("sheetIO")), 60);
+});
+// 导出：人和程序都能读的纯文本，方便在电脑上改完再导回来
+function exportText(scope){
+  const data = buildData();
+  const secs = scope==="all" ? data : data.filter(s=>s.id===state.sec);
+  const out = [];
+  secs.forEach(sec=>{
+    out.push("# "+sec.title);
+    sec.groups.forEach(g=>{
+      if(!g.items.length) return;
+      out.push("## "+g.title);
+      g.items.forEach(it=>{
+        out.push((it.doc!==undefined ? "T: " : "Q: ") + (it.doc!==undefined ? it.doc : it.q));
+        out.push("@id: "+it._id);
+        const lines = String(it.a||"").split("\n");
+        out.push("A: "+(lines[0]||""));
+        lines.slice(1).forEach(l=>out.push("  "+l));
+        out.push("");
+      });
+    });
+  });
+  return out.join("\n");
+}
+// 归一化后再比标题，避免空格、全角半角标点导致同一道题被当成新题
+function norm(s){
+  return String(s||"").replace(/\s+/g,"")
+    .replace(/[：:]/g,":").replace(/[？?]/g,"?").replace(/[，,、]/g,",")
+    .replace(/[。.]/g,".").replace(/[（(]/g,"(").replace(/[）)]/g,")")
+    .replace(/[！!]/g,"!").toLowerCase();
+}
+// 导入：问题文字相同就更新答案，新问题则追加
+function importText(txt){
+  const data0 = buildData();
+  const index = [], idMap = {};
+  data0.forEach(sec=>sec.groups.forEach(g=>g.items.forEach(it=>{
+    index.push({secId:sec.id, key:norm(it.doc!==undefined?it.doc:it.q), it});
+    idMap[it._id] = it;
+  })));
+  // 被删掉的内置题也建个索引：导入时不该让它以“新题”的身份复活
+  const goneKeys = [], goneIds = {};
+  buildData(true).forEach(sec=>sec.groups.forEach(g=>g.items.forEach(it=>{
+    if(deleted[it._id]){ goneKeys.push({secId:sec.id, key:norm(it.doc!==undefined?it.doc:it.q)}); goneIds[it._id]=true }
+  })));
+  const lines = txt.split(/\r?\n/);
+  let curSecId = state.sec, curGroup = null, cur = null;
+  const parsed = [];
+  const secByTitle = {};
+  data0.forEach(s=>{ secByTitle[s.title] = s.id });
+  for(const raw of lines){
+    const line = raw.replace(/\s+$/,"");
+    if(/^##\s+/.test(line)){ curGroup = line.replace(/^##\s+/,"").trim(); cur=null; continue }
+    if(/^#\s+/.test(line)){
+      const t = line.replace(/^#\s+/,"").trim();
+      curSecId = secByTitle[t] || curSecId; curGroup = secByTitle[t] ? null : (curGroup||t); cur=null; continue;
+    }
+    if(/^Q\s*[:：]/.test(line) || /^T\s*[:：]/.test(line)){
+      cur = {secId:curSecId, group:curGroup, type:(/^T/.test(line)?"doc":"q"),
+             q:line.replace(/^[QT]\s*[:：]\s?/,""), a:""};
+      parsed.push(cur); continue;
+    }
+    if(/^@id\s*[:：]/.test(line)){
+      if(cur) cur._id = line.replace(/^@id\s*[:：]\s?/,"").trim();
+      continue;
+    }
+    if(/^A\s*[:：]/.test(line)){
+      if(!cur){ cur = {secId:curSecId, group:curGroup, type:"q", q:"（无标题）", a:""}; parsed.push(cur) }
+      cur.a = line.replace(/^A\s*[:：]\s?/,""); continue;
+    }
+    if(cur && (cur.a!=="" || line!=="")){ cur.a += (cur.a===""?"":"\n") + line.replace(/^ {1,2}/,"") }
+  }
+  let add=0, upd=0, same=0, keepDel=0;
+  parsed.forEach(p=>{
+    if(!p.q) return;
+    // 优先按 @id 认题（这样“改过标题的题”也能对上，不会变成新题）
+    let found = (p._id && idMap[p._id]) ? idMap[p._id] : null;
+    if(!found) found = (index.find(x=>x.secId===p.secId && x.key===norm(p.q)) || {}).it || null;
+    if(found){
+      // 内容没变就不写覆盖，否则以后更新内置内容会被旧覆盖挡住
+      const curQ = (found.doc!==undefined ? found.doc : found.q) || "";
+      const curA = String(found.a||"").replace(/\s+$/,"");
+      const newA = String(p.a||"").replace(/\s+$/,"");
+      if(curQ===p.q && curA===newA){ same++ }
+      else { writeEdit(found, p.q, p.a); upd++ }
+    }else if((p._id && goneIds[p._id]) || goneKeys.some(x=>x.secId===p.secId && x.key===norm(p.q))){
+      keepDel++;   // 我曾删过这条，保持删除
+    }else{
+      const c = {id:uid(), sec:p.secId, group:p.group||undefined, q:p.q, a:p.a||"【待补充】"};
+      if(p.type==="doc") c.doc = 1;
+      custom.push(c);
+      index.push({secId:p.secId, key:norm(p.q), it:{_id:c.id, id:c.id, q:p.q, a:c.a, doc:p.type==="doc"?p.q:undefined}});
+      add++;
+    }
+  });
+  LS.set(KEY.c, custom); LS.set(KEY.e, overrides);
+  return {add, upd, same, keepDel};
+}
+document.getElementById("btnExportText").addEventListener("click", ()=>{
+  ioBox.value = exportText(ioScope.value);
+  ioBox.select();
+});
+document.getElementById("btnExportJson").addEventListener("click", ()=>{
+  ioBox.value = JSON.stringify({v:2, mastered:mastered, starred:starred, custom:custom,
+                                overrides:overrides, deleted:deleted});
+  ioBox.select();
+});
+document.getElementById("btnImport").addEventListener("click", ()=>{
+  const txt = ioBox.value.trim();
+  if(!txt){ alert("先把文本粘到上面的框里"); return }
+  if(txt.charAt(0)==="{"){
+    try{
+      const o = JSON.parse(txt);
+      if(o.mastered) { mastered = o.mastered; LS.set(KEY.m, mastered) }
+      if(o.starred)  { starred  = o.starred;  LS.set(KEY.s, starred) }
+      if(o.custom)   { custom   = o.custom;   LS.set(KEY.c, custom) }
+      if(o.overrides){ overrides = o.overrides; LS.set(KEY.e, overrides) }
+      if(o.deleted)  { deleted  = o.deleted;  LS.set(KEY.d, deleted) }
+      alert("备份已恢复"); closeSheets(); render();
+    }catch(e){ alert("备份文本不完整，检查是否复制全了") }
+    return;
+  }
+  const r = importText(txt);
+  alert("导入完成：" + (r.add?("新增 "+r.add+" 条，"):"") + (r.upd?("更新 "+r.upd+" 条，"):"") +
+        (r.same?("内容相同 "+r.same+" 条，"):"") + (r.keepDel?("已删除的 "+r.keepDel+" 条保持删除，"):"") + "其余未变");
+  ioBox.value = ""; closeSheets(); render();
+});
+
+/* ---- boot ---- */
+applyFs(); applyTheme(); render();
+
+/* 离线缓存：本地用文件方式打开时浏览器不支持，所以静默失败 */
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js").catch(() => {});
+  });
+}
+</script>
+</body>
+</html>
