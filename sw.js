@@ -1,6 +1,6 @@
 /* 离线缓存：让你在没网的时候也能打开面经。
    发布新版本时，把下面的版本号改一下（例如 v2、v3），手机端下一次联网打开就会自动更新。 */
-const VERSION = "mj-v1";
+const VERSION = "mj-v2";
 const ASSETS = [
   "./",
   "./index.html",
